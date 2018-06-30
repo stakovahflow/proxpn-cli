@@ -12,12 +12,15 @@ LOCKFILE=LOCKDIR + 'openvpn.lock'
 LINE=(os.system("printf '%*s\n' \"${COLUMNS:-$(tput cols)}\" '' | tr ' ' -"))
 r=0
 
+print("It is preferable not to travel with a dead man.\n\t--Henri Michaux")
+
 if not os.path.exists(LOCKDIR):
     os.makedirs(LOCKDIR)
 
 if not os.path.exists(CONFDIR):
 	print("Configuration directory doesn't exist.")
 	print("Creating '%s' now" % CONFDIR)
+	os.makedirs(CONFDIR)
 	print("You'll probably want to populate it from here:")
 	print("http://proxpn.com/updater/locations.html")
 	exit(0)
@@ -129,7 +132,8 @@ def startVPN():
 	except:
 		print('OOPS!')
 		print('Thanks for calling!')
-	"""os.system('reset')"""
+	# The "reset" command may be needed to allow the shell to work properly -issues on Kali Linux & other Debian/Ubuntu distros.)
+	#os.system('reset')
 	
 if __name__=='__main__':
 	if (os.path.exists(LOCKFILE)):
